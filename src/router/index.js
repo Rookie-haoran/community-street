@@ -3,11 +3,6 @@ import Router from 'vue-router'
 import Register from '@/views/Login-ui/Register'
 import Login from '@/views/Login-ui/Login'
 
-const Homepage = () => import('@/views/HomePage/Homepage');
-const Profile = () => import('@/views/Profile/Profile');
-const CommunityInfo = () => import('@/views/Profile/CommunityInfo');
-const MyActivity = () => import('@/views/Profile/MyActivity');
-const Friends = () => import('@/views/Profile/Friend');
 
 Vue.use(Router)
 
@@ -26,26 +21,26 @@ const routes = [
   },
   {
     path: '/home',
-    component: Homepage
+    component: () => import('@/views/HomePage/Homepage')
   },
   {
     path: '/profile',
-    component: Profile,
+    component: () => import('@/views/Profile/Profile'),
     meta: {
       requireAuth: true
     }
   },
   {
     path: '/profile/community',
-    component: CommunityInfo
+    component: () => import('@/views/Profile/CommunityInfo')
   },
   {
     path: '/profile/myactivity',
-    component: MyActivity
+    component: () => import('@/views/Profile/MyActivity')
   },
   {
     path: '/profile/friends',
-    component: Friends
+    component: () => import('@/views/Profile/Friend')
   },
   {
     path: '/activityinfo',
@@ -54,12 +49,17 @@ const routes = [
   {
     path: '/society',
     component: () => import('@/views/society/Society')
+  },
+  {
+    path: '/societyInfo',
+    component: () => import('@/views/societyInfo/SocietyInfo')
   }
 ]
 
 const router = new Router({
   routes,
   mode: 'history',
+  base: '/app/',
   linkActiveClass: "",
   linkExactActiveClass: ""
 })
