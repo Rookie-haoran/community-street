@@ -46,6 +46,10 @@
 <script>
 import LoginTop from "@/components/Login/LoginTop";
 import LoginText from "@/components/Login/LoginText";
+// import axios from "axios";
+import { request } from "@/utils/request";
+
+// import { mapMutations } from "vuex";
 export default {
   components: {
     LoginTop,
@@ -65,24 +69,49 @@ export default {
   computed: {
     form() {
       return {
-        stuNumber: this.stuNumber,
-        password: this.password,
+        userInfo: {
+          stuNumber: this.stuNumber,
+          password: this.password,
+        },
       };
     },
   },
   methods: {
-    async submit() {
-      Object.keys(this.form).forEach((f) => {
-        this.$refs[f].validate(true);
+    // ...mapMutations(["changeLogin"]),
+
+    // async submit() {
+    //   // Object.keys(this.form).forEach((f) => {
+    //   //   this.$refs[f].validate(true);
+    //   // });
+    //   const res = await this.$http
+    //     .get(
+    //       "https://www.fastmock.site/mock/52e4c67218f108573eac4ba6b439abfc/coderwu/coderwu/register"
+    //     )
+    //     .then((res) => {
+    //       console.log(res);
+    //       if (res.status === 200) {
+    //         localStorage.token = res.data.token;
+    //         this.isLogin = true;
+    //         // this.$router.push({ path: "/home" });
+    //       } else {
+    //         this.loginError = true;
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    submit() {
+      request({
+        url: "",
+      }).then((res) => {
+        localStorage.setItem("token", res);
+        this.$router.push("/home");
       });
-      const res = await this.$http.post("", this.form);
-      localStorage.token = res.data.token;
-      this.$message({
-        type: "success",
-        message: "登录成功",
-      });
-      this.$router.push("/home");
     },
   },
 };
 </script>
+
+<style scoped>
+</style>

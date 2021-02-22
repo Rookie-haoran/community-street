@@ -55,7 +55,7 @@ export default {
       drawer: false,
       links: [
         { icon: "home-search-outline", text: "首页", route: "/home" },
-        { icon: "flag", text: "活动", route: "/activity" },
+        { icon: "flag", text: "社团", route: "/society" },
         { icon: "account-details", text: "个人信息", route: "/profile" },
       ],
     };

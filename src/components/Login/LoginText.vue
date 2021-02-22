@@ -74,6 +74,8 @@
 </template>
 
 <script>
+// import { request } from "@/util/request";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -105,7 +107,7 @@ export default {
         this.$refs[f].reset();
       });
     },
-    async submit() {
+    submit() {
       this.formHasErrors = false;
       Object.keys(this.form).forEach((f) => {
         if (!this.form[f]) {
@@ -114,20 +116,15 @@ export default {
         this.$refs[f].validate(true);
       });
       if (this.formHasErrors === false) {
-        try {
-          const res = await this.$http.post("", this.form);
-          this.$message({
-            type: "success",
-            message: "注册成功",
+        axios
+          .get("http://111.229.238.150:121", this.form)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log("cccc");
           });
-        } catch (error) {
-          this.$message({
-            type: "error",
-            message: "注册失败",
-          });
-        }
       }
-      this.clear();
     },
     sendCoding() {
       this.sendCode = true;

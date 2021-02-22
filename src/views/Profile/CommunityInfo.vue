@@ -7,7 +7,9 @@
       <v-container class="my-n3 px-4">
         <v-divider></v-divider>
       </v-container>
-      <v-card> </v-card>
+      <v-card flat>
+        <v-card-text align="center">亲~您还未加入任何社团</v-card-text>
+      </v-card>
     </v-container>
   </div>
 </template>
