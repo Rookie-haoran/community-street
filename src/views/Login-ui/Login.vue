@@ -1,40 +1,45 @@
 <template>
-  <div>
+  <div id="login">
     <v-container>
       <login-top></login-top>
       <v-row justify="center">
-        <v-col cols="12" sm="10" md="6" lg="4">
+        <v-col cols="12" sm="6" md="6" lg="4">
           <v-card ref="from" flat>
-            <v-card-text>
+            <top>用户登录</top>
+            <v-card-text class="mt-10">
               <v-text-field
+                prepend-inner-icon="mdi-account"
                 ref="stuNumber"
                 v-model="stuNumber"
                 :rules="[() => !!stuNumber || '必须填写']"
                 label="学号"
                 placeholder="请输入学号"
-                required
+                outlined
+                dense
               >
               </v-text-field>
               <v-text-field
                 ref="password"
+                prepend-inner-icon="mdi-lock"
                 v-model="password"
                 :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                 :rules="[rules.required, rules.min]"
                 :type="show ? 'text' : 'password'"
                 label="密码"
                 hint="至少8个字符"
+                outlined
                 counter
+                dense
                 @click:append="show = !show"
               >
               </v-text-field>
             </v-card-text>
-            <v-card-actions wrap>
-              <v-btn block class="purple white--text" @click="submit"
-                >登录</v-btn
-              >
-            </v-card-actions>
-            <a href="/register" style="font-size: 12px; margin-left: 10px"
-              >没有账号？去注册</a
+
+            <v-btn block class="light-blue white--text" @click="submit"
+              >登录</v-btn
+            >
+            <router-link to="/register" style="font-size: 12px"
+              >没有账号？去注册</router-link
             >
           </v-card>
         </v-col>
@@ -44,16 +49,18 @@
 </template>
 
 <script>
-import LoginTop from "@/components/Login/LoginTop";
-import LoginText from "@/components/Login/LoginText";
-// import axios from "axios";
+import LoginTop from "@/components/register/RegisterTop";
+import LoginText from "@/components/register/RegisterText";
+
+import Top from "@/components/login-registerTop/Top";
 import { request } from "@/utils/request";
 
-// import { mapMutations } from "vuex";
 export default {
   components: {
     LoginTop,
     LoginText,
+
+    Top,
   },
   data() {
     return {
@@ -77,41 +84,20 @@ export default {
     },
   },
   methods: {
-    // ...mapMutations(["changeLogin"]),
-
     // async submit() {
     //   // Object.keys(this.form).forEach((f) => {
     //   //   this.$refs[f].validate(true);
     //   // });
-    //   const res = await this.$http
-    //     .get(
-    //       "https://www.fastmock.site/mock/52e4c67218f108573eac4ba6b439abfc/coderwu/coderwu/register"
-    //     )
-    //     .then((res) => {
-    //       console.log(res);
-    //       if (res.status === 200) {
-    //         localStorage.token = res.data.token;
-    //         this.isLogin = true;
-    //         // this.$router.push({ path: "/home" });
-    //       } else {
-    //         this.loginError = true;
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
     // },
     submit() {
-      request({
-        url: "",
-      }).then((res) => {
-        localStorage.setItem("token", res);
-        this.$router.push("/home");
-      });
+      this.$router.push("/home");
     },
   },
 };
 </script>
 
 <style scoped>
+#login {
+  margin-top: 50px;
+}
 </style>

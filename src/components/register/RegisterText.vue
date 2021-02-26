@@ -1,15 +1,17 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" sm="10" md="6" lg="4" justify="center" align="center">
+      <v-col cols="12" sm="6" md="6" lg="4">
         <v-card ref="from" flat>
-          <v-card-text>
+          <top>用户注册</top>
+          <v-card-text class="mt-5">
             <v-text-field
               ref="stuNumber"
               v-model="stuNumber"
               :rules="[() => !!stuNumber || '必须填写']"
               label="学号"
-              required
+              outlined
+              dense
             >
             </v-text-field>
             <v-text-field
@@ -25,7 +27,8 @@
                   '邮箱格式错误',
               ]"
               label="邮箱"
-              required
+              outlined
+              dense
             >
             </v-text-field>
             <v-text-field
@@ -38,10 +41,12 @@
               hint="至少8个字符"
               counter
               @click:append="show = !show"
+              outlined
+              dense
             >
             </v-text-field>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions class="mt-n8">
             <v-slide-x-reverse-transition>
               <v-tooltip v-if="formHasErrors" top>
                 <template v-slot:activator="{ on, attrs }">
@@ -59,14 +64,17 @@
               </v-tooltip>
               <div v-else class="d-flex ml-n2">
                 <v-spacer></v-spacer>
-                <v-btn depressed class="white" @click="sendCoding"
-                  >发送验证码</v-btn
-                >
+                <p depressed class="ml-4" @click="sendCoding">发送验证码</p>
                 <v-text-field class="mx-1" dense v-if="sendCode"></v-text-field>
               </div>
             </v-slide-x-reverse-transition>
           </v-card-actions>
-          <v-btn block class="purple white--text" @click="submit">注册</v-btn>
+          <v-btn block class="light-blue white--text" @click="submit"
+            >注册</v-btn
+          >
+          <router-link to="/login" style="font-size: 12px"
+            >已有账号？去登录</router-link
+          >
         </v-card>
       </v-col>
     </v-row>
@@ -75,6 +83,8 @@
 
 <script>
 // import { request } from "@/util/request";
+import Top from "@/components/login-registerTop/Top";
+
 import axios from "axios";
 export default {
   data() {
@@ -90,6 +100,9 @@ export default {
       },
       formHasErrors: false,
     };
+  },
+  components: {
+    Top,
   },
   computed: {
     form() {
@@ -116,14 +129,22 @@ export default {
         this.$refs[f].validate(true);
       });
       if (this.formHasErrors === false) {
-        axios
-          .get("http://111.229.238.150:121", this.form)
+        axios({
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "post",
+          url: "http://111.229.238.150:8188/register/showUser",
+          data: JSON.stringify(this.form),
+        })
           .then((res) => {
             console.log(res.data);
           })
           .catch((err) => {
-            console.log("cccc");
+            console.log(err);
+            console.log("报错了");
           });
+        console.log(JSON.stringify(this.form));
       }
     },
     sendCoding() {

@@ -1,24 +1,20 @@
 <template>
   <div id="register">
-    <v-container>
-      <v-main>
-        <login-top></login-top>
-        <login-text></login-text>
-      </v-main>
-    </v-container>
+    <register-top></register-top>
+    <register-text></register-text>
   </div>
 </template>
 
 <script>
-import LoginTop from "@/components/Login/LoginTop";
-import LoginText from "@/components/Login/LoginText";
+import RegisterTop from "@/components/register/RegisterTop";
+import RegisterText from "@/components/register/RegisterText";
 export default {
   components: {
-    LoginTop,
-    LoginText,
+    RegisterTop,
+    RegisterText,
   },
 };
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 </style>

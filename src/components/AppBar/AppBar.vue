@@ -43,6 +43,7 @@
             </v-list-item-title>
           </v-list-item>
         </v-list>
+        <p class="sign-out" @click="signOut">退出登录</p>
       </v-navigation-drawer>
     </v-card>
   </div>
@@ -60,5 +61,20 @@ export default {
       ],
     };
   },
+  methods: {
+    signOut() {
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
+
+<style scoped>
+.sign-out {
+  color: white;
+  position: absolute;
+  bottom: 0;
+  margin-left: 80px;
+  cursor: pointer;
+}
+</style>

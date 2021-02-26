@@ -9,57 +9,66 @@ Vue.use(Router)
 const routes = [
   {
     path: '',
-    redirect: 'login'
+    redirect: '/login'
   },
   {
     path: '/register',
-    component: Register
+    component: Register,
+    name: 'register'
   },
   {
     path: '/login',
-    component: Login
+    component: Login,
+    name: 'login'
   },
   {
     path: '/home',
-    component: () => import('@/views/HomePage/Homepage')
+    component: () => import('@/views/HomePage/Homepage'),
+    name: 'home'
   },
   {
     path: '/profile',
     component: () => import('@/views/Profile/Profile'),
+    name: 'profile',
     meta: {
       requireAuth: true
     }
   },
   {
     path: '/profile/community',
-    component: () => import('@/views/Profile/CommunityInfo')
+    component: () => import('@/views/Profile/CommunityInfo'),
+    name: 'community'
   },
   {
     path: '/profile/myactivity',
-    component: () => import('@/views/Profile/MyActivity')
+    component: () => import('@/views/Profile/MyActivity'),
+    name: 'myactivity'
   },
   {
     path: '/profile/friends',
-    component: () => import('@/views/Profile/Friend')
+    component: () => import('@/views/Profile/Friend'),
+    name: 'friends'
   },
   {
     path: '/activityinfo',
-    component: () => import('@/views/activityInfo/ActivityInfo')
+    component: () => import('@/views/activityInfo/ActivityInfo'),
+    name: 'activityinfo'
   },
   {
     path: '/society',
-    component: () => import('@/views/society/Society')
+    component: () => import('@/views/society/Society'),
+    name: 'society'
   },
   {
     path: '/societyInfo',
-    component: () => import('@/views/societyInfo/SocietyInfo')
+    component: () => import('@/views/societyInfo/SocietyInfo'),
+    name: 'societyInfo'
   }
 ]
 
 const router = new Router({
   routes,
-  mode: 'history',
-  base: '/app/',
+  // mode: 'history'
   linkActiveClass: "",
   linkExactActiveClass: ""
 })
@@ -90,12 +99,12 @@ const router = new Router({
 //   }
 // })
 
-router.beforeEach((to, from, next) => {
-  if (to.path !== '/login' && !localStorage.token) {
-    return next('/login');
-  }
-  next();
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.path !== '/login' && !localStorage.token) {
+//     return next('/login');
+//   }
+//   next();
+// })
 
 
 export default router

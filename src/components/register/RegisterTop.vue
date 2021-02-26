@@ -2,9 +2,9 @@
   <div>
     <div class="top">
       <vue-typed-js
-        :strings="['我不知道怎么写:(', '我是菜逼']"
+        :strings="['Welcome to ', 'Community Street']"
         :loop="true"
-        :typeSpeed="150"
+        :typeSpeed="100"
       >
         <h2 class="typing"></h2>
       </vue-typed-js>
@@ -22,7 +22,7 @@ export default {};
   justify-content: center;
   align-items: center;
   color: #f9c74f;
-  height: 120px;
+  height: 80px;
 }
 </style>
 
