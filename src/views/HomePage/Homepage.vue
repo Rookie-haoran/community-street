@@ -1,17 +1,18 @@
 <template>
   <div>
     <app-bar></app-bar>
-    <v-container>
-      <search></search>
-      <v-row class="d-flex">
-        <v-col cols="12" lg="4" md="4" sm="6" v-for="i in 9" :key="i">
-          <router-link to="/activityinfo" style="text-decoration: none">
-            <v-card class="mx-5" flat>
-              <v-card-title>title(活动名称)</v-card-title>
-              <v-card-subtitle>某社团(活动发起)</v-card-subtitle>
-              <v-card-text>社团信息啦啦啦啦啦啦啦啦</v-card-text>
-            </v-card>
-          </router-link>
+
+    <v-container class="mt-5">
+      <carousel></carousel>
+      <v-row>
+        <v-col cols="12" lg="3" md="4" sm="4" v-for="i in 9" :key="i">
+          <v-card class="mx-1 activityInfoBox" flat to="/activityinfo">
+            <activity-home>
+              <v-icon style="font-size: 2px">mdi-account</v-icon>
+              <span>报名人数 10/100</span>
+              <span class="isOver">已结束</span>
+            </activity-home>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
@@ -19,11 +20,21 @@
 </template>
 <script>
 import AppBar from "@/components/AppBar/AppBar";
-import search from "@/components/search/Search";
+import Carousel from "./carousel/Carrousel";
+import ActivityHome from "./activity-home/Activity-home";
 export default {
   components: {
     AppBar,
-    search,
+    ActivityHome,
+    Carousel,
   },
 };
 </script>
+
+<style scoped>
+@media (max-width: 600px) {
+  .activityInfoBox {
+    margin: 0 10px !important;
+  }
+}
+</style>

@@ -2,9 +2,9 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="12" sm="6" md="6" lg="4">
-        <v-card ref="from" flat>
+        <v-card ref="from" flat class="registerBox">
           <top>用户注册</top>
-          <v-card-text class="mt-5">
+          <v-card-text>
             <v-text-field
               ref="stuNumber"
               v-model="stuNumber"
@@ -27,6 +27,8 @@
                   '邮箱格式错误',
               ]"
               label="邮箱"
+              append-icon="mdi-send"
+              @click:append="sendCode"
               outlined
               dense
             >
@@ -45,6 +47,16 @@
               dense
             >
             </v-text-field>
+            <v-text-field
+              ref="verifyCode"
+              v-model="verifyCode"
+              label="验证码"
+              counter
+              dense
+              outlined
+              :rules="[() => !!verifyCode || '必须填写']"
+              hint="6位字符"
+            ></v-text-field>
           </v-card-text>
           <v-card-actions class="mt-n8">
             <v-slide-x-reverse-transition>
@@ -52,7 +64,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     icon
-                    class="my-0 mx-auto"
+                    class="mx-auto"
                     v-bind="attrs"
                     @click="resetForm"
                     v-on="on"
@@ -64,15 +76,17 @@
               </v-tooltip>
               <div v-else class="d-flex ml-n2">
                 <v-spacer></v-spacer>
-                <p depressed class="ml-4" @click="sendCoding">发送验证码</p>
-                <v-text-field class="mx-1" dense v-if="sendCode"></v-text-field>
               </div>
             </v-slide-x-reverse-transition>
           </v-card-actions>
-          <v-btn block class="light-blue white--text" @click="submit"
-            >注册</v-btn
-          >
-          <router-link to="/login" style="font-size: 12px"
+          <v-card-actions class="px-4">
+            <v-btn block class="light-blue white--text" @click="submit"
+              >注册</v-btn
+            >
+          </v-card-actions>
+          <router-link
+            to="/login"
+            style="font-size: 12px; text-decoration: none"
             >已有账号？去登录</router-link
           >
         </v-card>
@@ -82,7 +96,6 @@
 </template>
 
 <script>
-// import { request } from "@/util/request";
 import Top from "@/components/login-registerTop/Top";
 
 import axios from "axios";
@@ -91,8 +104,13 @@ export default {
     return {
       show: false,
       stuNumber: null,
-      mailbox: null,
-      sendCode: false,
+      mailbox: "",
+      verifyCode: null,
+      isCode: false,
+      backCode: null,
+      emailbox: {
+        mailbox: this.mailbox,
+      },
       password: "",
       rules: {
         required: (value) => !!value || "必须填写",
@@ -110,6 +128,7 @@ export default {
         stuNumber: this.stuNumber,
         mailbox: this.mailbox,
         password: this.password,
+        verifyCode: this.verifyCode,
       };
     },
   },
@@ -128,30 +147,52 @@ export default {
         }
         this.$refs[f].validate(true);
       });
-      if (this.formHasErrors === false) {
+      if (this.backCode != this.verifyCode) {
+        alert("验证码错误");
+        this.isCode = false;
+      } else {
+        this.isCode = true;
+      }
+      if (this.formHasErrors === false && this.isCode === true) {
         axios({
-          headers: {
-            "Content-Type": "application/json",
-          },
           method: "post",
-          url: "http://111.229.238.150:8188/register/showUser",
-          data: JSON.stringify(this.form),
+          url: "http://111.229.238.150:8188/register/verifyuser",
+          data: this.form,
         })
           .then((res) => {
-            console.log(res.data);
+            console.log(res);
+            if (res.data === "success") {
+              this.$router.push("/login");
+            }
           })
           .catch((err) => {
             console.log(err);
             console.log("报错了");
           });
-        console.log(JSON.stringify(this.form));
       }
     },
-    sendCoding() {
-      this.sendCode = true;
-      // 发送验证码
+    sendCode() {
+      axios({
+        method: "post",
+        url: "http://111.229.238.150:8188/register/verifycode",
+        data: this.form,
+      })
+        .then((res) => {
+          console.log(res.data);
+          this.backCode = res.data;
+          console.log(this.backCode);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      console.log(this.form);
     },
   },
 };
 </script>
+<style>
+.registerBox {
+  opacity: 0.7;
+}
+</style>
 

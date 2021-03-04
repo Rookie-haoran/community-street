@@ -9,7 +9,14 @@ Vue.use(Router)
 const routes = [
   {
     path: '',
-    redirect: '/login'
+    redirect: {
+      name: 'entrance'
+    }
+  },
+  {
+    path: '/',
+    component: () => import('@/views/entrance/EntrancePage'),
+    name: 'entrance'
   },
   {
     path: '/register',
@@ -35,21 +42,6 @@ const routes = [
     }
   },
   {
-    path: '/profile/community',
-    component: () => import('@/views/Profile/CommunityInfo'),
-    name: 'community'
-  },
-  {
-    path: '/profile/myactivity',
-    component: () => import('@/views/Profile/MyActivity'),
-    name: 'myactivity'
-  },
-  {
-    path: '/profile/friends',
-    component: () => import('@/views/Profile/Friend'),
-    name: 'friends'
-  },
-  {
     path: '/activityinfo',
     component: () => import('@/views/activityInfo/ActivityInfo'),
     name: 'activityinfo'
@@ -68,7 +60,6 @@ const routes = [
 
 const router = new Router({
   routes,
-  // mode: 'history'
   linkActiveClass: "",
   linkExactActiveClass: ""
 })

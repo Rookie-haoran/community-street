@@ -22,7 +22,7 @@ export default {
 
 <style lang="less">
 #app {
-  background-color: #f4f4f4;
+  background-color: #f5f6fa;
   padding: 0;
   margin: 0;
   box-sizing: border-box;

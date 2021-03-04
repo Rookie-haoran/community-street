@@ -1,10 +1,10 @@
 <template>
-  <div id="login">
-    <v-container>
+  <div id="loginPage">
+    <v-container class="login">
       <login-top></login-top>
-      <v-row justify="center">
+      <v-row justify="center" text-align="center">
         <v-col cols="12" sm="6" md="6" lg="4">
-          <v-card ref="from" flat>
+          <v-card ref="from" flat class="loginBox">
             <top>用户登录</top>
             <v-card-text class="mt-10">
               <v-text-field
@@ -34,13 +34,26 @@
               >
               </v-text-field>
             </v-card-text>
-
-            <v-btn block class="light-blue white--text" @click="submit"
-              >登录</v-btn
-            >
-            <router-link to="/register" style="font-size: 12px"
-              >没有账号？去注册</router-link
-            >
+            <v-card-actions class="mt-n4 px-4">
+              <v-btn block class="light-blue white--text" @click="submit">
+                登录
+              </v-btn>
+            </v-card-actions>
+            <v-card-actions class="toRegister d-flex justify-center">
+              <router-link
+                to="/register"
+                style="font-size: 12px; text-decoration: none"
+              >
+                注册
+              </router-link>
+              <span class="text-grey lighten-4 mx-2"> | </span>
+              <router-link
+                to="/register"
+                style="font-size: 12px; text-decoration: none"
+              >
+                忘记密码
+              </router-link>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -51,15 +64,14 @@
 <script>
 import LoginTop from "@/components/register/RegisterTop";
 import LoginText from "@/components/register/RegisterText";
-
 import Top from "@/components/login-registerTop/Top";
-import { request } from "@/utils/request";
+
+import axios from "axios";
 
 export default {
   components: {
     LoginTop,
     LoginText,
-
     Top,
   },
   data() {
@@ -71,33 +83,64 @@ export default {
         required: (value) => !!value || "必须填写",
         min: (v) => v.length >= 8 || "少于8个字符",
       },
+      formHasErrors: false,
     };
   },
   computed: {
     form() {
       return {
-        userInfo: {
-          stuNumber: this.stuNumber,
-          password: this.password,
-        },
+        stuNumber: this.stuNumber,
+        password: this.password,
       };
     },
   },
   methods: {
-    // async submit() {
-    //   // Object.keys(this.form).forEach((f) => {
-    //   //   this.$refs[f].validate(true);
-    //   // });
-    // },
     submit() {
-      this.$router.push("/home");
+      Object.keys(this.form).forEach((f) => {
+        if (!this.form[f]) {
+          this.formHasErrors = true;
+        }
+        this.$refs[f].validate(true);
+      });
+      if (this.formHasErrors === false) {
+        axios
+          .post("http://111.229.238.150:8188/login/check", this.form)
+          .then((res) => {
+            if (res.data === true) {
+              this.$router.push("/home");
+            } else if (res.data === false) {
+              alert("登录失败");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-#login {
-  margin-top: 50px;
+#loginPage {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../assets/img/loginBack.jpg");
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.login {
+  padding-top: 50px;
+}
+
+.loginBox {
+  opacity: 0.8;
+}
+.toRegister {
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
 }
 </style>
