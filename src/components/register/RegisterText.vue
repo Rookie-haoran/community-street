@@ -5,58 +5,60 @@
         <v-card ref="from" flat class="registerBox">
           <top>用户注册</top>
           <v-card-text>
-            <v-text-field
-              ref="stuNumber"
-              v-model="stuNumber"
-              :rules="[() => !!stuNumber || '必须填写']"
-              label="学号"
-              outlined
-              dense
-            >
-            </v-text-field>
-            <v-text-field
-              ref="mailbox"
-              v-model="mailbox"
-              :rules="[
-                () => !!mailbox || '必须填写',
-                () =>
-                  (!!mailbox &&
-                    /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(
-                      mailbox
-                    )) ||
-                  '邮箱格式错误',
-              ]"
-              label="邮箱"
-              append-icon="mdi-send"
-              @click:append="sendCode"
-              outlined
-              dense
-            >
-            </v-text-field>
-            <v-text-field
-              ref="password"
-              v-model="password"
-              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="[rules.required, rules.min]"
-              :type="show ? 'text' : 'password'"
-              label="密码"
-              hint="至少8个字符"
-              counter
-              @click:append="show = !show"
-              outlined
-              dense
-            >
-            </v-text-field>
-            <v-text-field
-              ref="verifyCode"
-              v-model="verifyCode"
-              label="验证码"
-              counter
-              dense
-              outlined
-              :rules="[() => !!verifyCode || '必须填写']"
-              hint="6位字符"
-            ></v-text-field>
+            <v-form>
+              <v-text-field
+                ref="stuNumber"
+                v-model="stuNumber"
+                :rules="[() => !!stuNumber || '必须填写']"
+                label="学号"
+                outlined
+                dense
+              >
+              </v-text-field>
+              <v-text-field
+                ref="mailbox"
+                v-model="mailbox"
+                :rules="[
+                  () => !!mailbox || '必须填写',
+                  () =>
+                    (!!mailbox &&
+                      /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(
+                        mailbox
+                      )) ||
+                    '邮箱格式错误',
+                ]"
+                label="邮箱"
+                append-icon="mdi-send"
+                @click:append="sendCode"
+                outlined
+                dense
+              >
+              </v-text-field>
+              <v-text-field
+                ref="password"
+                v-model="password"
+                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[rules.required, rules.min]"
+                :type="show ? 'text' : 'password'"
+                label="密码"
+                hint="至少8个字符"
+                counter
+                @click:append="show = !show"
+                outlined
+                dense
+              >
+              </v-text-field>
+              <v-text-field
+                ref="verifyCode"
+                v-model="verifyCode"
+                label="验证码"
+                counter
+                dense
+                outlined
+                :rules="[() => !!verifyCode || '必须填写']"
+                hint="6位字符"
+              ></v-text-field>
+            </v-form>
           </v-card-text>
           <v-card-actions class="mt-n8">
             <v-slide-x-reverse-transition>
@@ -98,7 +100,8 @@
 <script>
 import Top from "@/components/login-registerTop/Top";
 
-import axios from "axios";
+// import axios from "axios";
+import { request } from "@/utils/request";
 export default {
   data() {
     return {
@@ -154,7 +157,7 @@ export default {
         this.isCode = true;
       }
       if (this.formHasErrors === false && this.isCode === true) {
-        axios({
+        request({
           method: "post",
           url: "http://111.229.238.150:8188/register/verifyuser",
           data: this.form,
@@ -172,7 +175,7 @@ export default {
       }
     },
     sendCode() {
-      axios({
+      request({
         method: "post",
         url: "http://111.229.238.150:8188/register/verifycode",
         data: this.form,

@@ -66,7 +66,9 @@ import LoginTop from "@/components/register/RegisterTop";
 import LoginText from "@/components/register/RegisterText";
 import Top from "@/components/login-registerTop/Top";
 
-import axios from "axios";
+// import axios from "axios";
+import { request } from "@/utils/request";
+import { mapMutations } from "vuex";
 
 export default {
   components: {
@@ -84,6 +86,7 @@ export default {
         min: (v) => v.length >= 8 || "少于8个字符",
       },
       formHasErrors: false,
+      userToken: "",
     };
   },
   computed: {
@@ -95,7 +98,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["changeLogin"]),
     submit() {
+      const _this = this;
       Object.keys(this.form).forEach((f) => {
         if (!this.form[f]) {
           this.formHasErrors = true;
@@ -103,16 +108,22 @@ export default {
         this.$refs[f].validate(true);
       });
       if (this.formHasErrors === false) {
-        axios
-          .post("http://111.229.238.150:8188/login/check", this.form)
+        request({
+          method: "post",
+          url: "/login/check",
+          data: this.form,
+        })
           .then((res) => {
-            if (res.data === true) {
+            if (res.data.message === true) {
+              _this.userToken = res.data.token;
+              _this.changeLogin({ Authorization: _this.userToken });
               this.$router.push("/home");
             } else if (res.data === false) {
               alert("登录失败");
             }
           })
           .catch((err) => {
+            alert("登录失败");
             console.log(err);
           });
       }

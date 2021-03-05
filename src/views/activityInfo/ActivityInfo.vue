@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-bar></app-bar>
-    <v-container>
+    <v-container class="activityInfoBox">
       <v-card>
         <v-card-title>Activity Name</v-card-title>
         <v-card-subtitle>A ognization</v-card-subtitle>
@@ -15,16 +15,23 @@
         </v-card-actions>
       </v-card>
     </v-container>
+    <bottom-nav></bottom-nav>
   </div>
 </template>
 <script>
 import AppBar from "@/components/AppBar/AppBar";
+import BottomNav from "@/components/bottomNav/BottomNav";
+
 export default {
   components: {
     AppBar,
+    BottomNav,
   },
 };
 </script>
 
 <style scoped>
+.activityInfoBox {
+  height: 100vh;
+}
 </style>

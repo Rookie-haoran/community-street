@@ -2,15 +2,6 @@
   <div>
     <v-card class="overflow-hidden">
       <v-app-bar flat app class="white">
-        <!-- src="https://picsum.photos/1920/1080" -->
-        <!-- :prominent="$vuetify.breakpoint.xs ? false : true" -->
-        <!-- <template v-slot:img="{ props }">
-          <v-img
-            v-bind="props"
-            gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
-          >
-          </v-img>
-        </template> -->
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
         <v-app-bar-title class="hide">社团街</v-app-bar-title>
         <v-spacer></v-spacer>

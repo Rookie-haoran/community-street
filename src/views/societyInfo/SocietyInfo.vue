@@ -1,21 +1,12 @@
 <template>
   <div>
     <app-bar></app-bar>
-    <v-container>
+    <v-container class="societyInfoBox">
       <v-card class="communityBox">
         <v-tabs>
-          <v-tab>
-            <!-- <v-icon>mdi-account-details</v-icon> -->
-            社团信息
-          </v-tab>
-          <v-tab>
-            <!-- <v-icon>mdi-format-list-bulleted-square</v-icon> -->
-            社团活动
-          </v-tab>
-          <v-tab>
-            <!-- <v-icon>mdi-account-multiple</v-icon> -->
-            社团人员
-          </v-tab>
+          <v-tab> 社团信息 </v-tab>
+          <v-tab> 社团活动 </v-tab>
+          <v-tab> 社团人员 </v-tab>
           <v-tab-item>
             <v-card flat>
               <v-card-text>
@@ -57,6 +48,7 @@
 <script>
 import AppBar from "@/components/AppBar/AppBar";
 import ActivityHome from "@/views/HomePage/activity-home/Activity-home";
+
 export default {
   components: {
     AppBar,
@@ -65,8 +57,11 @@ export default {
 };
 </script>
 <style scoped>
+.societyInfoBox {
+  height: fit-content;
+}
 .communityBox {
-  margin-top: 100px;
+  margin-top: 20px;
 }
 ul li {
   list-style: none;

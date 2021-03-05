@@ -3,7 +3,7 @@ import axios from 'axios';
 export function request(config) {
   // 1. 创建 axios 实例
   const instance = axios.create({
-    // baseUrl: 'http://111.229.238.150:8188',
+    baseURL: 'http://111.229.238.150:8188',
     timeout: 5000
   });
 
@@ -14,15 +14,17 @@ export function request(config) {
     // if (token) {
     //   config.headers.common['Authorization'] = token;
     // }
+    if (localStorage.getItem('Authorization')) {
+      config.headers.Authorization = localStorage.getItem('Authorization');
+    }
     return config;
   }, err => {
     return Promise.reject(err);
   });
 
   instance.interceptors.response.use(res => {
-    let data = res.data;
 
-    return Promise.reject(data);
+    return Promise.resolve(res);
   }, err => {
     return Promise.reject(err);
   })
