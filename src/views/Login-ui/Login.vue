@@ -36,6 +36,7 @@
             </v-card-text>
             <v-card-actions class="mt-n4 px-4">
               <v-btn block class="light-blue white--text" @click="submit">
+                <v-icon>mdi-login-variant</v-icon>
                 登录
               </v-btn>
             </v-card-actions>
@@ -66,7 +67,6 @@ import LoginTop from "@/components/register/RegisterTop";
 import LoginText from "@/components/register/RegisterText";
 import Top from "@/components/login-registerTop/Top";
 
-// import axios from "axios";
 import { request } from "@/utils/request";
 import { mapMutations } from "vuex";
 

@@ -10,7 +10,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn depressed class="white" v-on="on" v-bind="attrs">
               <v-icon>mdi-account-circle</v-icon>
-              <span class="hide">19407020510</span>
+              <span class="hide">{{ user.stuNumber }}</span>
               <v-icon>mdi-chevron-down</v-icon>
             </v-btn>
           </template>
@@ -32,22 +32,31 @@
             <v-avatar size="100" class="grey lighten-2">
               <img src="@/assets/logo/avatar.jpg" alt="" />
             </v-avatar>
-            <p class="white--text mt-1">浩然</p>
+            <p class="white--text mt-1">{{ user.nickname }}</p>
           </v-col>
         </v-row>
         <v-list dark>
-          <v-list-item
-            v-for="(link, i) in links"
-            :key="i"
-            router
-            :to="link.route"
-          >
+          <v-list-item to="/home">
             <v-list-item-action>
-              <v-icon>mdi-{{ link.icon }}</v-icon>
+              <v-icon>mdi-home-search-outline</v-icon>
             </v-list-item-action>
-            <v-list-item-title>
-              {{ link.text }}
-            </v-list-item-title>
+            <v-list-item-title> 首页 </v-list-item-title>
+          </v-list-item>
+        </v-list>
+
+        <v-list dark>
+          <v-subheader>社团</v-subheader>
+          <v-list-item to="/society">
+            <v-list-item-action>
+              <v-icon>mdi-flag</v-icon>
+            </v-list-item-action>
+            <v-list-item-title>社团中心</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-action>
+              <v-icon>mdi-clipboard-edit-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-title>社团管理</v-list-item-title>
           </v-list-item>
         </v-list>
 
@@ -68,7 +77,7 @@
 <script>
 import search from "@/components/search/Search";
 
-import axios from "axios";
+import { request } from "@/utils/request";
 export default {
   components: {
     search,
@@ -84,6 +93,7 @@ export default {
         { text: "个人中心", route: "/profile" },
         { text: "退出", route: "/login" },
       ],
+      user: {},
     };
   },
   methods: {
@@ -92,8 +102,18 @@ export default {
     },
   },
 
-  create() {
-    axios.get("http://111.229.238.150:8188/register/verifycode");
+  create() {},
+
+  mounted() {
+    request({
+      url: "/profile",
+      method: "get",
+    }).then((res) => {
+      // console.log(res.data);
+      // console.log(this.user);
+      this.user = res.data;
+      // console.log(this.user);
+    });
   },
 };
 </script>

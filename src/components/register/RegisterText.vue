@@ -7,6 +7,7 @@
           <v-card-text>
             <v-form>
               <v-text-field
+                prepend-inner-icon="mdi-numeric"
                 ref="stuNumber"
                 v-model="stuNumber"
                 :rules="[() => !!stuNumber || '必须填写']"
@@ -15,26 +16,31 @@
                 dense
               >
               </v-text-field>
+              <div class="d-flex">
+                <v-text-field
+                  prepend-inner-icon="mdi-email"
+                  ref="mailbox"
+                  v-model="mailbox"
+                  :rules="[
+                    () => !!mailbox || '必须填写',
+                    () =>
+                      (!!mailbox &&
+                        /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(
+                          mailbox
+                        )) ||
+                      '邮箱格式错误',
+                  ]"
+                  label="邮箱"
+                  outlined
+                  dense
+                >
+                </v-text-field>
+                <v-btn depressed class="ml-1 info" @click="sendCode"
+                  >发送</v-btn
+                >
+              </div>
               <v-text-field
-                ref="mailbox"
-                v-model="mailbox"
-                :rules="[
-                  () => !!mailbox || '必须填写',
-                  () =>
-                    (!!mailbox &&
-                      /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(
-                        mailbox
-                      )) ||
-                    '邮箱格式错误',
-                ]"
-                label="邮箱"
-                append-icon="mdi-send"
-                @click:append="sendCode"
-                outlined
-                dense
-              >
-              </v-text-field>
-              <v-text-field
+                prepend-inner-icon="mdi-lock"
                 ref="password"
                 v-model="password"
                 :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -49,6 +55,7 @@
               >
               </v-text-field>
               <v-text-field
+                prepend-inner-icon="mdi-numeric-6-box-outline"
                 ref="verifyCode"
                 v-model="verifyCode"
                 label="验证码"
@@ -82,9 +89,10 @@
             </v-slide-x-reverse-transition>
           </v-card-actions>
           <v-card-actions class="px-4">
-            <v-btn block class="light-blue white--text" @click="submit"
-              >注册</v-btn
-            >
+            <v-btn block class="light-blue white--text" @click="submit">
+              <v-icon>mdi-emoticon-kiss</v-icon>
+              注册
+            </v-btn>
           </v-card-actions>
           <router-link
             to="/login"
@@ -142,6 +150,23 @@ export default {
         this.$refs[f].reset();
       });
     },
+    sendCode() {
+      request({
+        method: "post",
+        url: "http://111.229.238.150:8188/register/verifycode",
+        data: this.form,
+      })
+        .then((res) => {
+          console.log(res.data);
+          this.backCode = res.data;
+          console.log(this.backCode);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      console.log(this.form);
+    },
+
     submit() {
       this.formHasErrors = false;
       Object.keys(this.form).forEach((f) => {
@@ -173,22 +198,6 @@ export default {
             console.log("报错了");
           });
       }
-    },
-    sendCode() {
-      request({
-        method: "post",
-        url: "http://111.229.238.150:8188/register/verifycode",
-        data: this.form,
-      })
-        .then((res) => {
-          console.log(res.data);
-          this.backCode = res.data;
-          console.log(this.backCode);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      console.log(this.form);
     },
   },
 };

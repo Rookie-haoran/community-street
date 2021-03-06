@@ -5,7 +5,13 @@
       <v-card flat class="mt-10">
         <v-tabs>
           <v-tab>我的社团</v-tab>
+          <v-tab>加入的社团</v-tab>
           <v-tab>社团广场</v-tab>
+          <v-tab-item class="mt-5">
+            <v-card>
+              <v-card-title>你还未创建任何社团</v-card-title>
+            </v-card>
+          </v-tab-item>
           <v-tab-item class="mt-5">
             <v-row class="d-flex">
               <v-col cols="12" lg="4" md="4" sm="6" v-for="i in 9" :key="i">
