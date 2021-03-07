@@ -15,13 +15,11 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-item
-              v-for="(list, i) in lists"
-              :key="i"
-              link
-              :to="list.route"
-            >
-              <v-list-item-title v-text="list.text"></v-list-item-title>
+            <v-list-item router to="/profile">
+              <v-list-item-title>个人中心</v-list-item-title>
+            </v-list-item>
+            <v-list-item router to="/login" @click="signOut">
+              <v-list-item-title>退出</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -89,20 +87,21 @@ export default {
         { icon: "home-search-outline", text: "首页", route: "/home" },
         { icon: "flag", text: "社团", route: "/society" },
       ],
-      lists: [
-        { text: "个人中心", route: "/profile" },
-        { text: "退出", route: "/login" },
-      ],
+
       user: {},
     };
   },
   methods: {
     signOut() {
+      let data = localStorage.getItem("Authorization");
+      console.log(data);
       this.$router.push("/login");
+      // localStorage.removeItem("Authorization");
+      // localStorage.clear();
+      // let data = localStorage.getItem("Authorization");
+      // console.log(data);
     },
   },
-
-  create() {},
 
   mounted() {
     request({

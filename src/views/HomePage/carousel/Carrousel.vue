@@ -8,7 +8,9 @@
       class="carousel"
     >
       <v-carousel-item v-for="(slide, i) in slides" :key="i" :src="slide.src">
-        <v-row class="fill-height" align="center" justify="center"> </v-row>
+        <v-row class="fill-height" align="center" justify="center">
+          <div class="display-2">社团街</div>
+        </v-row>
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -36,22 +38,22 @@ export default {
         },
         {
           src:
-            "https://pic4.zhimg.com/80/v2-0cc0f144548e12871d57b014e20449b0_1440w.jpg?source=1940e5cf",
+            "http://pic.90sjimg.com/back_origin_pic/05/71/85/19e87c21033668f9fb4a3e857d72ac4a.jpg!/fwfh/822x300/quality/90/unsharp/true/compress/true",
           id: 2,
         },
         {
           src:
-            "https://pic4.zhimg.com/80/v2-0cc0f144548e12871d57b014e20449b0_1440w.jpg?source=1940e5cf",
+            "https://img.tukuppt.com/ad_preview/00/14/12/5c9984610ccdf.jpg!/fw/780",
           id: 3,
         },
         {
           src:
-            "https://pic4.zhimg.com/80/v2-0cc0f144548e12871d57b014e20449b0_1440w.jpg?source=1940e5cf",
+            "https://p.sda1.dev/0/1cd4688d3a9f614d67b265e7f3dc9271/v2-da4b5a5cd8b3047ed8887bbffdc4422b_720w.jpg",
           id: 4,
         },
         {
           src:
-            "https://pic4.zhimg.com/80/v2-0cc0f144548e12871d57b014e20449b0_1440w.jpg?source=1940e5cf",
+            "http://pic.90sjimg.com/back_origin_pic/05/71/70/78e80f357865727a232475f257613e0f.jpg!/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true",
           id: 5,
         },
       ],
@@ -63,7 +65,7 @@ export default {
 <style scoped>
 @media (max-width: 600px) {
   .carousel {
-    height: 200px !important;
+    height: 220px !important;
     padding: 0 10px !important;
   }
 }

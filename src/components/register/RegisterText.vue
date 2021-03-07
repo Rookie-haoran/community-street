@@ -94,11 +94,9 @@
               注册
             </v-btn>
           </v-card-actions>
-          <router-link
-            to="/login"
-            style="font-size: 12px; text-decoration: none"
-            >已有账号？去登录</router-link
-          >
+          <v-card-actions class="d-flex justify-center align-center toLoginBox">
+            <p @click="$router.push('/login')" class="toLogin">返回登入</p>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -205,6 +203,15 @@ export default {
 <style>
 .registerBox {
   opacity: 0.7;
+}
+.toLoginBox {
+  height: 30px;
+}
+.toLogin {
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 30px;
 }
 </style>
 

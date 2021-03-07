@@ -15,17 +15,14 @@
         </v-card-actions>
       </v-card>
     </v-container>
-    <bottom-nav></bottom-nav>
   </div>
 </template>
 <script>
 import AppBar from "@/components/AppBar/AppBar";
-import BottomNav from "@/components/bottomNav/BottomNav";
 
 export default {
   components: {
     AppBar,
-    BottomNav,
   },
 };
 </script>

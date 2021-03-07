@@ -51,15 +51,17 @@ const routes = [
     component: () => import('@/views/society/Society'),
     name: 'society'
   },
+
   {
-    path: '/societyInfo',
-    component: () => import('@/views/societyInfo/SocietyInfo'),
-    name: 'societyInfo'
+    path: '/searchContent',
+    component: () => import('@/components/search/searchContent/SearchContent'),
+    name: 'searchContent'
   }
 ]
 
 const router = new Router({
   routes,
+  mode: 'history',
   linkActiveClass: "",
   linkExactActiveClass: ""
 })

@@ -1,6 +1,8 @@
 <template>
   <div>
+    <!-- 应用栏 -->
     <app-bar></app-bar>
+
     <v-container>
       <div class="box">
         <div class="d-flex">
@@ -12,9 +14,12 @@
           </span>
         </div>
         <v-spacer></v-spacer>
-        <v-btn class="sign-out" @click="signOut" depressed>退出登录</v-btn>
+        <v-btn class="sign-out" @click="signOut" text color="error">
+          <v-icon left>mdi-account-arrow-right-outline</v-icon>
+          退出登录
+        </v-btn>
       </div>
-
+      <!-- 分割线 -->
       <v-divider></v-divider>
 
       <v-card class="mt-5">
@@ -138,7 +143,7 @@ ul li {
   .sign-out {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 10px;
   }
 }
 
